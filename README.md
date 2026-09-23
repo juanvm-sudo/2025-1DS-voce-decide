@@ -1,1 +1,0 @@
-# 2025-1DS-voce-decide
