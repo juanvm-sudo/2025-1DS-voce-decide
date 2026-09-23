@@ -1,127 +1,145 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A história de Airn</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Completo - Automação de Mercadinho de Esquina</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main>
 
-        <div class="passo ativo" id="passo-0">
-            <img src="imagem01.png" alt="">
-            <p> Você é Arin, um jovem aprendiz de magia que vive em um vilarejo escondido entre as montanhas. Numa noite
-                de lua cheia, o mestre da vila o chama e revela que o Cristal da Vida, um artefato antigo que mantém a
-                floresta e os rios vivos, foi roubado. Sem ele, toda a região vai começar a definhar.
-                O mestre entrega a você um cajado simples e um mapa inacabado, e diz: — Arin, só você pode encontrar o
-                Cristal antes que seja tarde demais.
-                Você respira fundo e parte em sua jornada. </p>
-            <button class="btn-proximo" data-proximo="1"> Seguir pela Floresta Sombria, onde dizem que espíritos antigos
-                guardam segredos esquecidos.</button>
-            <button class="btn-proximo" data-proximo="2"> Seguir pela Montanha de Fogo, onde vive um dragão que talvez
-                saiba quem roubou o cristal.</button>
+  <header>
+    <h1>🏪 Mercadinho Express <span style="font-size: 0.8rem; font-weight: normal; opacity: 0.8;">Automação Completa</span></h1>
+    <div class="header-info" id="relogio-sistema">Carregando data...</div>
+  </header>
+
+  <div class="main-container">
+    <!-- COLUNA 1: PDV / FRENTE DE CAIXA -->
+    <div class="panel">
+      <h2>🛒 Frente de Caixa (PDV)</h2>
+
+      <div class="search-box">
+        <input type="text" id="input-busca" placeholder="Bipar código ou pesquisar produto..." oninput="filtrarCatalogo()">
+      </div>
+
+      <div class="products-grid" id="grid-catalogo">
+        <!-- Gerado via JS -->
+      </div>
+
+      <div style="font-weight: 600; font-size: 0.9rem; margin-top: 5px;">Itens no Carrinho</div>
+      <div class="cart-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Qtd</th>
+              <th>Subtotal</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          <tbody id="lista-carrinho">
+            <tr><td colspan="4" style="text-align: center; color: var(--text-muted);">Carrinho vazio</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div style="font-size: 0.8rem; color: var(--text-muted); text-align: right;">Total a Pagar</div>
+        <div class="cart-total">R$ <span id="txt-total">0,00</span></div>
+      </div>
+
+      <div class="checkout-actions">
+        <button class="btn btn-pix" onclick="abrirCheckout('Pix')">Pix</button>
+        <button class="btn btn-money" onclick="abrirCheckout('Dinheiro')">Dinheiro</button>
+        <button class="btn btn-cancel" onclick="limparCarrinho()">Cancelar</button>
+      </div>
+    </div>
+
+    <!-- COLUNA 2: ESTOQUE INTELIGENTE & CADASTRO -->
+    <div class="panel">
+      <h2>📦 Estoque & Cadastro</h2>
+
+      <!-- Nova funcionalidade: Formulário rápido para cadastrar produto -->
+      <form class="form-add-produto" onsubmit="adicionarNovoProduto(event)">
+        <div class="form-row">
+          <input type="text" id="cad-nome" placeholder="Nome do produto" required>
+          <input type="text" id="cad-codigo" placeholder="Código" required style="width: 80px;">
         </div>
-
-        <div class="passo" id="passo-1">
-            <img src="" alt="">
-            <p> Você entra na floresta, onde a neblina cobre o chão e os galhos parecem sussurrar seu nome. Após horas
-                de caminhada, surge uma clareira iluminada por vaga-lumes azuis. No centro dela, há uma pedra brilhante,
-                mas você sente uma energia estranha.
-                De repente, um espírito guardião aparece e fala: — Jovem aprendiz, para continuar precisa provar seu
-                valor. </p>
-            <button class="btn-proximo" data-proximo="3"> Aceitar o desafio do espírito, que pede para você resolver um
-                enigma antigo.</button>
-            <button class="btn-proximo" data-proximo="4"> Ignorar o espírito e pegar a pedra brilhante à força,
-                arriscando as consequências.</button>
+        <div class="form-row">
+          <input type="number" step="0.01" id="cad-preco" placeholder="Preço (R$)" required>
+          <input type="number" id="cad-estoque" placeholder="Qtd" required style="width: 70px;">
+          <input type="date" id="cad-validade" required>
         </div>
+        <button type="submit" class="btn btn-add">+ Cadastrar Produto</button>
+      </form>
 
-        <div class="passo" id="passo-2">
-            <img src="" alt="">
-            <p> Você sobe a trilha íngreme da montanha. O calor aumenta a cada passo e o ar cheira a enxofre. No topo,
-                encontra uma caverna de pedras vermelhas, iluminada por lava. Lá dentro, um enorme dragão de escamas
-                douradas abre os olhos.
-                Ele não parece hostil, mas sua voz ecoa como trovão: — Humano… ousa me incomodar em meu descanso? </p>
-            <button class="btn-proximo" data-proximo="5"> Conversar com o dragão e pedir ajuda para encontrar o Cristal
-                da Vida.</button>
-            <button class="btn-proximo" data-proximo="6"> Tentar roubar uma pedra mágica do tesouro enquanto o dragão
-                observa, esperando que ela ajude em sua missão.</button>
+      <div class="inventory-list">
+        <table>
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Qtd</th>
+              <th>Validade</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-estoque">
+            <!-- Gerado via JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="metric-card alert" id="alerta-vencimento-card">
+          <div>
+            <div class="metric-title">Atenção Validade</div>
+            <div class="metric-value" id="qtd-vencimento">0 itens</div>
+          </div>
+          <button class="btn" style="background:var(--danger); padding:6px 10px; font-size:0.75rem;" onclick="gerarPromocaoRelampago()">Oferta Relâmpago</button>
         </div>
+      </div>
+    </div>
 
-        <div class="passo" id="passo-3">
-            <img src="" alt="">
-            <p> O espírito faz a pergunta:"Sou a chave que abre qualquer porta, mas não tenho forma. O que sou?" </p>
-            <button class="btn-proximo" data-proximo="7"> A palavra. </button>
-            <button class="btn-proximo" data-proximo="10"> Chave mestra </button>
+    <!-- COLUNA 3: FINANCEIRO & MARKETING -->
+    <div class="panel">
+      <h2>💰 Fechamento & Marketing</h2>
+
+      <div class="metric-card">
+        <div>
+          <div class="metric-title">Faturamento Hoje (Caixa)</div>
+          <div class="metric-value" id="faturamento-hoje">R$ 0,00</div>
         </div>
+        <span style="font-size: 1.5rem;">📊</span>
+      </div>
 
-        <div class="passo" id="passo-4">
-            <img src="" alt="">
-            <p> Você ignora os avisos e toca na pedra. Imediatamente, raízes vivas se enrolam em suas pernas e braços. O
-                espírito grita:"A ganância tem um preço!"
-                Ninguem te escuta, nada se move naquele lugar... O tempo passa, você presa e com fome.
-                Nunca mais se escutou sobre a maga Arin </p>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-top: 5px;">🤖 WhatsApp Business (Disparos)</div>
+      <div class="whatsapp-preview" id="whatsapp-preview-box">
+        <div class="wa-msg">Olá vizinho! 🛒 Hoje temos Leite Integral fresco e Pão quentinho saindo às 16h. Venha conferir!</div>
+      </div>
 
-        </div>
+      <button class="btn btn-primary" onclick="enviarOfertaWhatsApp()">Disparar Oferta no Bairro</button>
+    </div>
+  </div>
 
-        <div class="passo " id="passo-5">
-            <img src="" alt="">
-            <p>Você pede ajuda com coragem, e o dragão observa seus olhos. Ele diz:"O Cristal não foi roubado… ele fugiu
-                por vontade própria. Mas eu posso guiá-lo até onde ele descansa." </p>
-            <button class="btn-proximo" data-proximo="8"> Duvidar da palavra do dragão. </button>
-            <button class="btn-proximo" data-proximo="11"> Aceitar a ajuda do dragão. </button>
-        </div>
+  <!-- MODAL DE CHECKOUT -->
+  <div class="modal-overlay" id="modal-checkout">
+    <div class="modal-box">
+      <h3 id="modal-titulo">Pagamento</h3>
+      <p id="modal-subtexto" style="font-size: 0.9rem; color: var(--text-muted);"></p>
+      <div class="qr-placeholder" id="modal-conteudo-dinamico">
+        [ QR CODE PIX GERADO ]
+      </div>
 
-        <div class="passo " id="passo-6">
-            <img src="" alt="">
-            <p> Enquanto o dragão fala, você tenta pegar uma das pedras reluzentes. Mas assim que a toca, ela gruda na
-                sua mão como se estivesse viva! O dragão ruge:"Traidor insolente!". O rugido do dragão foi a ultima
-                coisa que escutamos de dentro da cova onde estava Arin, nunca mais se escutou falar da maga mais
-                poderosa do mundo. </p>
+      <!-- Banner de agradecimento exibido na confirmação de compra -->
+      <div id="modal-sucesso-banner" style="display: none;">
+        <img src="juan.jpg" alt="Agradecimento pela compra" class="receipt-banner">
+      </div>
 
-        </div>
+      <button class="btn btn-primary" id="btn-confirmar-pagamento" onclick="concluirVenda()">Confirmar Pagamento & Emitir NFC-e</button>
+      <button class="btn btn-cancel" style="width:100%; background:#ccc; color:#333;" onclick="fecharModal()">Voltar</button>
+    </div>
+  </div>
 
-        <div class="passo " id="passo-7">
-            <img src="" alt="">
-            <p> O espírito sorri e abre um portal. Você atravessa e chega a um santuário antigo, iluminado por cristais
-                azuis. Lá, uma inscrição na parede revela:"O Cristal da Vida não foi roubado. Ele busca um coração puro
-                para despertar seu verdadeiro poder."
-                Enquanto você lê, um golem de pedra se ergue diante do altar. Ele não ataca, mas bloqueia o caminho.
-            </p>
-            <button class="btn-proximo" data-proximo="9">Usar sua magia contra o golem para forçar passagem.</button>
-            <button class="btn-proximo" data-proximo="4"> Tentar dialogar com o golem, mostrando que é digno.</button>
-        </div>
-
-        <div class="passo " id="passo-8">
-            <img src="" alt="">
-            <p> Você cria um olograma magico que continua conversando com o dragão enquanto você vai engatinhando por
-                uma abertura que brilha. Chega a um portal que te leva direto para um golem que protege o cristal da
-                vida. Sua magia acerta o goem antes de ele poder reagir. Ele se despedaça e você consegue alcançar o
-                cristal da vida e salva o mundo.</p>
-        </div>
-
-        <div class="passo " id="passo-9">
-            <img src="" alt="">
-            <p> Sua magia acerta o goem antes de ele poder reagir. Ele se despedaça e você consegue alcançar o cristaç
-                da vida e salva o mundo. </p>
-        </div>
-
-        <div class="passo " id="passo-10">
-            <img src="" alt="">
-            <p> Ninguem te escuta, nada se move naquele lugar... O tempo passa, você presa e com fome.
-                Nunca mais se escutou sobre a maga Arin </p>
-
-        </div>
-
-        <div class="passo  " id="passo-11">
-            <img src="" alt="">
-            <p>O rugido do dragão foi a ultima coisa que escutamos de dentro da cova onde estava Arin, nunca mais se
-                escutou falar da maga mais poderosa do mundo. </p>
-        </div>
-
-
-    </main>
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
